@@ -5,4 +5,5 @@ app_name='client'
 
 urlpatterns = [
     path('', views.index, name='list'),
+    path('search/', views.search, name='search'),
 ]

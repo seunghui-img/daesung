@@ -6,8 +6,8 @@ from common.models import CodeDt
 
 # Create your models here.
 class Order(models.Model):
-    order_no = models.CharField(max_length=11)  #거래번호 yyyymmdd-ooo
-    orderdate = models.CharField(max_length=8)  #거래일자 yyyymmdd
+    order_no = models.CharField(max_length=11)  #거래번호 yyyymmddooo
+    orderdate = models.CharField(max_length=10)  #거래일자 yyyy-mm-dd
     client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name="order_client")       #거래처
     staff = models.ForeignKey(User, on_delete=models.PROTECT, related_name="order_staff")           #담당직원
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="order_product")    #거래상품

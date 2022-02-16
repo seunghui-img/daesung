@@ -8,7 +8,10 @@ class Code(models.Model):
     sort = models.IntegerField(blank=True)
 
     def __str__(self):
-        return f"{self.code_nm}"
+        return f"{self.code_nm} ({self.id})"
+
+    def code_id(self):
+        return self.id
 
 class CodeDt(models.Model):
     code = models.ForeignKey(Code, on_delete=models.CASCADE, related_name="code")
@@ -20,6 +23,9 @@ class CodeDt(models.Model):
 
     def __str__(self):
         return f"{self.code_nm}"
+
+    def code_id(self):
+        return self.id
 
 # # upload_to : 업로드될 폴더명으로 media/user/2022에 쌓이게 된다
 # pic = models.ImageField(upload_to="user/%y")

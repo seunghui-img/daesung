@@ -33,3 +33,6 @@ class User(AbstractUser):
 
     def staff_type_val(self):
         return self.staff_type.code_val
+        
+    def id(self):
+        return self.id

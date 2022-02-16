@@ -29,8 +29,8 @@
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">매장관리</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
                                     {% if user.staff_type_val == '99' %}
-                                        <li><a class="dropdown-item" href="{% url 'sample:blog-home' %}">사업장 관리</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'sample:blog-post' %}">직원 관리</a></li>
+                                        <li><a class="dropdown-item" href="#">사업장 관리</a></li>
+                                        <li><a class="dropdown-item" href="#">직원 관리</a></li>
                                     {% endif %}
                                     <li><a class="dropdown-item" href="{% url 'product:list' %}">상품 관리</a></li>
                                     <li><a class="dropdown-item" href="{% url 'client:list' %}">거래처 관리</a></li>
@@ -39,20 +39,20 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">주문관리</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
-                                    <li><a class="dropdown-item" href="{% url 'order:sales' %}">판매 관리</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'order:sales' %}">충전 관리</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'order:sales' %}">미수금 내역</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'order:sales' %}">재고 내역</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'order:sales-list' %}">판매 관리</a></li>
+                                    <li><a class="dropdown-item" href="#">충전 관리</a></li>
+                                    <li><a class="dropdown-item" href="#">미수금 내역</a></li>
+                                    <li><a class="dropdown-item" href="#">재고 내역</a></li>
                                 </ul>
                             </li>
                             {% if user.staff_type_val == '99' %}
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">매출관리</a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown3">
-                                        <li><a class="dropdown-item" href="{% url 'sample:portfolio-overview' %}">주간매출</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'sample:portfolio-item' %}">월간매출</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'sample:portfolio-item' %}">연간매출</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'sample:portfolio-item' %}">Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="#">주간매출</a></li>
+                                        <li><a class="dropdown-item" href="#">월간매출</a></li>
+                                        <li><a class="dropdown-item" href="#">연간매출</a></li>
+                                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
                                     </ul>
                                 </li>
                             {% endif %}
@@ -60,8 +60,8 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{user}}</a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown3">
+                                        <li><a class="dropdown-item" href="#">개인정보</a></li>
                                         <li><a class="dropdown-item" href="{% url 'acc:logout' %}">로그아웃</a></li>
-                                        <!-- <li><a class="dropdown-item" href="{% url 'sample:portfolio-item' %}">개인정보</a></li> -->
                                     </ul>
                                 </li>
                             {% else %}
