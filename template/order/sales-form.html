@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block con %}
+
+<!-- Page Content-->
+<section class="py-7">
+    <div class="container px-3 my-5">
+
+        <div class="row gx-5">
+            <div class="col-xl-12">
+                <h6 class="fw-bolder mb-3">주문 관리 > 판매 관리 > {{order_no}} </h6>
+            </div>
+        </div>
+
+
+        <form method="post">
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="orderdate_label">일자</span>
+                <input name="orderdate" value="{{orderdate}}" type="date" class="form-control" id="orderdate" aria-label="orderdate">
+            </div>
+
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="client_label">거래처</span>
+                <input name="client" value="{{client}}" type="text" class="form-control" id="client" aria-describedby="client">
+                <button class="btn btn-outline-secondary" type="button" id="client-search">검색</button>
+            </div>
+
+
+            <hr style="background-color: white;">
+            <label for="product-info" class="form-label">상품 정보</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="product_label">상품</span>
+                <input name="product" value="{{product}}" type="text" class="form-control" id="product" aria-describedby="product">
+                <button class="btn btn-outline-secondary" type="button" id="product-search">검색</button>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="unit-group_label">단가</span>
+                <input name="unit" value="{{unit}}" type="text" class="form-control" id="unit" aria-label="unit">
+                <input name="unit_price" value="{{unit_price}}" type="text" class="form-control" id="unit_price" aria-label="unit_price">
+
+                <span class="input-group-text" id="quantity">주문수량</span>
+                <input name="quantity" value="{{quantity}}" type="text" class="form-control" id="quantity" aria-label="quantity">
+            </div>
+        
+
+            <hr style="background-color: white;">
+            <label for="payment-info" class="form-label">결제 정보</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="payment_type_label">결제 유형</span>
+                <select name="payment_type" class="form-select" aria-label="Default select example">
+                    <option value="10" selected>현금</option>
+                    <option value="20">카드</option>
+                    <option value="30">이체</option>
+                </select>
+
+                <span class="input-group-text" id="payment_state_label">상태</span>
+                <select name="payment_state" class="form-select" aria-label="Default select example">
+                    <option value="10" selected>미납</option>
+                    <option value="20">완료</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="ammount_label">금액</span>
+                <input name="ammount" value="{{ammount}}" type="text" class="form-control" id="ammount" aria-describedby="ammount">
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="approver_label">서명인</span>
+                <input name="approver" value="{{approver}}" type="text" class="form-control" id="approver" aria-describedby="approver">
+            </div>
+
+
+            <hr style="background-color: white;">
+            <label for="payment-info" class="form-label">비고</label>
+            <div class="input-group mb-3">
+                <textarea name="comment" class="form-control" id="message-text">{{comment}}</textarea>
+            </div>
+        </form>
+        
+
+    </div>
+</section>
+
+
+
+
+{% endblock %}

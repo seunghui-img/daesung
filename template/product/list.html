@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block con %}
+
+<!-- Page Content-->
+<section class="py-7">
+    <div class="container px-3 my-5">
+
+        <div class="row gx-5">
+            <div class="col-xl-12">
+                <h6 class="fw-bolder mb-3">매장 관리 > 상품 관리</h6>
+            </div>
+        </div>
+
+        <!-- 검색 조건 -->
+        <div class="text-center mb-5">
+            <h1 class="fw-bolder">검색 조건 영역</h1>
+            <p class="lead fw-normal text-muted mb-0">How can we help you?</p>
+        </div>
+
+        <!-- 상품 목록 -->
+        <div class="row gx-5">
+            <div class="col-xl-12">
+                <button>추가</button>
+
+                <div class="accordion mb-5" id="accordionExample">
+
+                    {% for i in list %}
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="heading{{forloop.counter}}">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">{{i.product_nm}}</button>
+                        </h3>
+                        <div class="accordion-collapse collapse" id="collapse{{forloop.counter}}" aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>{{i.product_nm}}</strong><br>
+
+                                <button>수정</button>
+                                
+                                상품분류 : {{i.product_ctgy.code_nm}}<br>
+                                
+                                단가 : {{i.unit}} / {{i.unit_price}}원<br>
+                                
+                                설명 : {{i.comment}}
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            <!-- <div class="col-xl-4">
+                <div class="card border-0 bg-light mt-xl-5">
+                    <div class="card-body p-4 py-lg-5">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="text-center">
+                                <div class="h6 fw-bolder">Have more questions?</div>
+                                <p class="text-muted mb-4">
+                                    Contact us at
+                                    <br />
+                                    <a href="#!">support@domain.com</a>
+                                </p>
+                                <div class="h6 fw-bolder">Follow us</div>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-twitter"></i></a>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-linkedin"></i></a>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+{% endblock %}
