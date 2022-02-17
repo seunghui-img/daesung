@@ -21,7 +21,7 @@ def search(request):
     # 조회
     clienttype = request.GET.get('clienttype')
     biztype = request.GET.get('biztype')
-    custnm = request.GET.get('custnm')
+    custnm = request.GET.get('custnm', '')
 
     print("GET : ", clienttype, biztype, custnm)
 
