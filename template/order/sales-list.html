@@ -14,8 +14,31 @@
 
         <!-- 검색 조건 -->
         <div class="text-center mb-5">
-            <h1 class="fw-bolder">검색 조건 영역</h1>
-            <p class="lead fw-normal text-muted mb-0">How can we help you?</p>
+
+            <form class="row gy-2 gx-3 align-items-center">
+                <label for="searchdate" class="col-sm-1 col-form-label">주문일자</label>
+                <div class="col-auto">
+                    <input name="fromdate" value="{{search.fromdate}}" type="date" class="form-control" id="fromdate" onchange="matchdate('from')">
+                </div> ~ 
+                <div class="col-auto">
+                    <input name="todate" value="{{search.todate}}" type="date" class="form-control" id="todate" onchange="matchdate('to')">
+                </div>
+
+                <label for="searchstaff" class="col-sm-1 col-form-label">담당직원</label>
+                <div class="col-auto">
+                    <select name="staffname" class="form-select" id="searchstaff">
+                        <option value="" {% if search.staffname %} {% else %} selected {% endif %}>전체</option>
+                        {% for i in staff_combo %}
+                            <option value="{{i}}" {% if i.username == search.staffname %} selected {% endif %}>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-dark">검색</button>
+                </div>
+            </form>
+
         </div>
 
         <!-- Button -->
@@ -35,8 +58,8 @@
                 </tr>
             </thead>
             <tbody>
-                {% if list %}
-                    {% for i in list %}
+                {% if saleslist %}
+                    {% for i in saleslist %}
                     <tr onclick="PopupEmpInfo(this)">
                         <td>{{forloop.counter}}</td>
                         <td>{{i.order_no}}</td>
@@ -59,5 +82,40 @@
 
     </div>
 </section>
+
+<script>
+    // 검색일자 초기설정
+    var fromdate = document.getElementById('fromdate');
+    var todate = document.getElementById('todate');
+    
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ("0" + (1 + today.getMonth())).slice(-2);
+    var date = ("0" + today.getDate()).slice(-2);
+
+    if(fromdate.value == ''){
+        fromdate.value = year+'-'+month+'-'+date;
+    }
+
+    if(todate.value == ''){
+        todate.value = year+'-'+month+'-'+date;
+    }
+
+    // 검색일자 값의 유효성이 맞지 않을 시, 값을 일치
+    function matchdate(objnm) {
+        var fromdate = document.getElementById('fromdate');
+        var todate = document.getElementById('todate');
+
+        if(fromdate.value > todate.value) {
+            if(objnm = 'to'){
+                fromdate.value = todate.value;
+            }
+
+            // if(objnm = 'from') {
+            //     todate.value = fromdate.value;
+            // }
+        }
+    }
+</script>
 
 {% endblock %}

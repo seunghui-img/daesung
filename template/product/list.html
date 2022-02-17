@@ -13,22 +13,23 @@
         </div>
 
         <!-- 검색 조건 -->
-        <div class="text-center mb-5">
+        <!-- <div class="text-center mb-5">
             <h1 class="fw-bolder">검색 조건 영역</h1>
             <p class="lead fw-normal text-muted mb-0">How can we help you?</p>
-        </div>
+        </div> -->
+
+        <!-- Button -->
+        <a href="{% url 'product:create' %}"><button type="button" class="btn btn-primary">신규</button></a>
 
         <!-- 상품 목록 -->
         <div class="row gx-5">
             <div class="col-xl-12">
-                <button>추가</button>
 
                 <div class="accordion mb-5" id="accordionExample">
-
                     {% for i in list %}
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="heading{{forloop.counter}}">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">{{i.product_nm}}</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">{{i.product_nm}}</button>
                         </h3>
                         <div class="accordion-collapse collapse" id="collapse{{forloop.counter}}" aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
@@ -46,7 +47,6 @@
                         </div>
                     </div>
                     {% endfor %}
-                    
                 </div>
             </div>
             <!-- <div class="col-xl-4">
@@ -70,6 +70,7 @@
                     </div>
                 </div>
             </div> -->
+
         </div>
     </div>
 </section>

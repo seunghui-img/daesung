@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Modern Business - Start Bootstrap Template</title>
+        <title>대성가스 매출관리시스템</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -29,11 +29,11 @@
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">매장관리</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
                                     {% if user.staff_type_val == '99' %}
-                                        <li><a class="dropdown-item" href="#">사업장 관리</a></li>
+                                        <!-- <li><a class="dropdown-item" href="#">사업장 관리</a></li> -->
                                         <li><a class="dropdown-item" href="#">직원 관리</a></li>
                                     {% endif %}
-                                    <li><a class="dropdown-item" href="{% url 'product:list' %}">상품 관리</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'client:list' %}">거래처 관리</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'product:search' %}">상품 관리</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'client:search' %}">거래처 관리</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">

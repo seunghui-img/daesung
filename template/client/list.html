@@ -14,45 +14,129 @@
 
         <!-- 검색 조건 -->
         <div class="text-center mb-5">
-            <h1 class="fw-bolder">검색 조건 영역</h1>
-            <p class="lead fw-normal text-muted mb-0">How can we help you?</p>
+
+            <form class="row gy-2 gx-3 align-items-center">
+                <label for="searchClientype" class="col-sm-1 col-form-label">거래처 유형</label>
+                <div class="col-auto">
+                    <select name="clienttype" class="form-select" id="searchClientype">
+                        <option value="" {% if search.clienttype %} {% else %} selected {% endif %}>전체</option>
+                        {% for i in clienttype_combo %}
+                            <option value="{{i.id}}" {% if i.id == search.clienttype %} selected {% endif %}>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <label for="searchBiztype" class="col-sm-1 col-form-label">거래 유형</label>
+                <div class="col-auto">
+                    <select name="biztype" class="form-select" id="searchBiztype">
+                        <option value="" {% if search.biztype %} {% else %} selected {% endif %}>전체</option>
+                        {% for i in biztype_combo %}
+                            <option value="{{i.id}}" {% if i.id == search.biztype %} selected {% endif %}>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <label for="custnm" class="col-sm-1 col-form-label">거래처명</label>
+                <div class="col-auto">
+                    <input name="custnm" value="{{search.custnm}}" type="text" class="form-control" id="clientnm">
+                </div>
+
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-dark">검색</button>
+                </div>
+            </form>
         </div>
+
+        <!-- Button -->
+        <a href="{% url 'client:create' %}"><button type="button" class="btn btn-primary">신규</button></a>
 
         <!-- 거래처 목록 -->
         <div class="row gx-5">
             <div class="col-xl-12">
-                <button>추가</button>
-
                 <div class="accordion mb-5" id="accordionExample">
 
-                    {% for i in list %}
+                    {% for i in clientlist %}
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="heading{{forloop.counter}}">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">{{i.cust_nm}}</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">{{i.cust_nm}}</button>
                         </h3>
                         <div class="accordion-collapse collapse" id="collapse{{forloop.counter}}" aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <strong>{{i.cust_nm}}</strong><br>
 
-                                <button>수정</button>
-                                
-                                
-                                고객유형 : {{i.client_type.code_nm}}<br>
-                                {% if i.client_type.code_val == 'C' %}
-                                    사업자번호 : {{i.corp_no}}<br>
-                                    사업장명 : {{i.corp_nm}}<br>
-                                {% endif %}
+                                <form method="post" action="{% url 'client:modify' i.id %}" class="row g-3">
+                                    {% if i.client_type.code_val == 'C' %}
+                                        <div class="col-md-6">
+                                            <label for="corp_nm" class="form-label">사업장</label>
+                                            <input name="corp_nm" value="{{i.corp_nm}}" type="text" class="form-control" id="corp_nm">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="corp_no" class="form-label">사업자번호</label>
+                                            <input name="corp_no" value="{{i.corp_no}}" type="text" class="form-control" id="corp_no">
+                                        </div>
+                                    {% endif %}
 
-                                
-                                거래유형 : {{i.biz_type.code_nm}}<br>
+                                    <div class="col-md-6">
+                                        {% if i.client_type.code_val == 'C' %}
+                                        <label for="cust_nm" class="form-label">대표</label>
+                                        {% else %}
+                                        <label for="cust_nm" class="form-label">고객</label>
+                                        {% endif %}
+                                        <input name="cust_nm" value="{{i.cust_nm}}" type="text" class="form-control" id="cust_nm">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="client_type" class="form-label">거래처 유형</label>
+                                        <select name="client_type" id="client_type" class="form-select">
+                                            {% for i in clienttype_combo %}
+                                                <option value="{{i.id}}" {% if i.id == i.client_type %} selected {% endif %}>{{i}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="biz_type" class="form-label">거래 유형</label>
+                                        <select name="biz_type" id="biz_type" class="form-select">
+                                            {% for i in biztype_combo %}
+                                                <option value="{{i.id}}" {% if i.id == i.biz_type %} selected {% endif %}>{{i}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
 
-                                주거래 상품 : {{i.main_biz_pdt_id}}<br>                           
-                                주소 : {{i.address}} {{i.address2}}<br>
-                                전화번호 : {{i.telephone}}<br>
-                                휴대폰번호 : {{i.cellphone}}<br>
-                                계좌번호 : ({{i.bank}}) {{i.account}}<br>
-                                
-                                비고 : {{i.comment}}
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">주소</label>
+                                        <input name="address" value="{{i.address}}" type="text" class="form-control" id="address">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="address2" class="form-label">상세주소</label>
+                                        <input name="address2" value="{{i.address2}}" type="text" class="form-control" id="address2">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="telephone" class="form-label">전화번호</label>
+                                        <input name="telephone" value="{{i.telephone}}" type="text" class="form-control" id="telephone">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cellphone" class="form-label">휴대폰번호</label>
+                                        <input name="cellphone" value="{{i.cellphone}}" type="text" class="form-control" id="cellphone">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="bank" class="form-label">은행</label>
+                                        <input name="bank" value="{{i.bank}}" type="text" class="form-control" id="bank">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label for="account" class="form-label">계좌번호</label>
+                                        <input name="account" value="{{i.account}}" type="text" class="form-control" id="account">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="comment" class="form-label">비고</label>
+                                        <textarea name="comment" value="{{i.comment}}" type="text" class="form-control" id="comment">{{i.comment}}</textarea>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="button" class="btn">삭제</button>
+                                        <button type="submit" class="btn btn-primary">수정</button>
+                                    </div>
+                                </form>
                                 
                             </div>
                         </div>

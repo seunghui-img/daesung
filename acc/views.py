@@ -19,7 +19,7 @@ def login_user(request):
         # context={
         #     'staff_type': User.objects.get(username=iUsername)
         # }
-        return render(request, 'acc/login.html')
+        return redirect('order:sales-list')
         
     return render(request, 'acc/login.html')
 

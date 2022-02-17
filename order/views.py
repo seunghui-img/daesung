@@ -5,14 +5,51 @@ from client.models import Client
 from acc.models import User
 from product.models import Product
 from django.db.models import Q
+import datetime
 
 # Create your views here.
 ''' 판매관리 '''
 def sales_list(request):
-    list = Order.objects.filter(biz_type=7)
-    context={
-        'list': list,
+    # 조건 검색
+    fromdate = request.GET.get('fromdate', '')
+    todate = request.GET.get('todate', '')
+    staffname = request.GET.get('staffname', '')
+    # custNm = request.GET.get('custNm')
+
+    print("GET : ", fromdate, todate, staffname)
+
+    searchQ = Q()
+
+    # 거래유형 : 판매
+    searchQ &= Q(biz_type=7)
+
+    # 주문일자
+    searchQ &= Q(orderdate__range=[fromdate, todate])
+
+    # 담당직원
+    if staffname :
+        try:
+            staff = User.objects.get(username=staffname)
+            searchQ &= Q(staff=staff)
+        except:
+            pass
+
+    print("QuerySet : ", searchQ.__str__)
+
+    list = Order.objects.filter(searchQ)
+
+    print("Result : ", list)
+
+    context = {
+        'staff_combo': User.objects.filter(is_staff=False).exclude(staff_type=4),
+        'saleslist': list,
+        'search' : {
+            'staffname': staffname,
+            'fromdate': fromdate,
+            'todate': todate,
+        },
     }
+
     return render(request, 'order/sales-list.html', context)
 
 def create_sales(request):
