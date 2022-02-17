@@ -210,7 +210,7 @@
 </div>
 
 <script>
-    // 신규등록일 시, 오늘 일자 설정
+    // 신규 등록일 시, 오늘 일자로 설정
     var orderdate = document.getElementById('orderdate');
 
     if(orderdate.value == ''){
@@ -238,19 +238,6 @@
         // Update the modal's content.
         var modalTitle = exampleModal.querySelector('.modal-title');
         modalTitle.textContent = recipient;
-
-        // // 거래일자
-        // if(recipient == '판매 등록'){
-        //     var today = new Date();
-        //     var year = today.getFullYear();
-        //     var month = ("0" + (1 + today.getMonth())).slice(-2);
-        //     var date = ("0" + today.getDate()).slice(-2);
-
-        //     var orderdate = exampleModal.querySelector('#orderdate');
-        //     orderdate.value = year+'-'+month+'-'+date;
-        // } else{
-            
-        // }
     });
 </script>
 
