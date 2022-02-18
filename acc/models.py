@@ -9,7 +9,7 @@ class User(AbstractUser):
     staff_type = models.ForeignKey(CodeDt, on_delete=models.PROTECT, null=True, related_name='user_staff_type')    #직원유형코드 (99매니저, 1벌크, 2용기, 3경리)
     corp = models.ForeignKey(Corp, on_delete=models.PROTECT, null=True, related_name='user_corp') #소속회사
 
-    birthday = models.CharField(max_length=8, blank=True)
+    birthday = models.CharField(max_length=10, blank=True)#yyyy-mm-dd
     zipcode = models.CharField(max_length=10, blank=True)
     address = models.CharField(max_length=200, blank=True)
     address2 = models.CharField(max_length=200, blank=True)

@@ -5,7 +5,6 @@ from client.models import Client
 from acc.models import User
 from product.models import Product
 from django.db.models import Q
-import datetime
 
 # Create your views here.
 ''' 판매관리 '''
@@ -176,14 +175,15 @@ def update(request, pk):
     return order
 
 def insert(request, biz_type_id):
+    import datetime
 
-    orderdate = request.POST.get('orderdate')
-    no = '00'+str(len(Order.objects.filter(orderdate=orderdate))+1)
+    today = datetime.datetime.now().strftime("%Y%m%d")
+    no = '00'+str(len(Order.objects.filter(orderdate=today))+1)
 
     Order(
-        order_no = orderdate.replace("-","") + no[len(no)-3:len(no)],
+        order_no=today + no[len(no)-3:len(no)],
         biz_type=CodeDt.objects.get(id=biz_type_id),
-        orderdate=orderdate,
+        orderdate=request.POST.get('orderdate'),
         client=Client.objects.get(id=request.POST.get('client')),
         staff=User.objects.get(id=request.POST.get('staff')),
         product=Product.objects.get(id=request.POST.get('product')),

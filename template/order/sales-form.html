@@ -8,7 +8,7 @@
 
         <div class="row gx-5">
             <div class="col-xl-12">
-                <h6 class="fw-bolder mb-3">주문 관리 > 판매 관리 > {{order.order_no}} </h6>
+                <h6 class="fw-bolder mb-3">거래 장부 > 매출 장부 > {{order.order_no}} </h6>
             </div>
         </div>
 
@@ -42,8 +42,8 @@
                                 <option selected>선택</option>
                             {% endif %}
 
-                            {% for i in client_combo %}
-                                <option value="{{i.id}}" {% if i == order.client %} selected {% endif %}>{{i}}</option>
+                            {% for cd in client_combo %}
+                                <option value="{{cd.id}}" {% if cd == order.client %} selected {% endif %}>{{cd}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -53,18 +53,18 @@
                         <span class="input-group-text" id="client_label">담당자</span>
                         <select name="staff" class="form-select" aria-label="Default select example">
                             {% if order.staff %}
-                                {% for i in staff_combo %}
-                                <option value="{{i.id}}" {% if i == order.staff %} selected {% endif %}>{{i}}</option>
+                                {% for cd in staff_combo %}
+                                <option value="{{cd.id}}" {% if cd == order.staff %} selected {% endif %}>{{cd}}</option>
                                 {% endfor %}
                             {% else %}
                                 {% if user.staff_type_val == '1' or user.staff_type_val == '2' %}
-                                    {% for i in staff_combo %}
-                                        <option value="{{i.id}}" {% if i.id == user.id %} selected {% endif %}>{{i}}</option>
+                                    {% for cd in staff_combo %}
+                                        <option value="{{cd.id}}" {% if cd.id == user.id %} selected {% endif %}>{{cd}}</option>
                                     {% endfor %}
                                 {% else %}
                                     <option selected>선택</option>
-                                    {% for i in staff_combo %}
-                                        <option value="{{i.id}}">{{i}}</option>
+                                    {% for cd in staff_combo %}
+                                        <option value="{{cd.id}}">{{cd}}</option>
                                     {% endfor %}
                                 {% endif %}
                             {% endif %}
@@ -81,8 +81,8 @@
                                 <option selected>선택</option>
                             {% endif %}
 
-                            {% for i in pdt_combo %}
-                                <option value="{{i.id}}" {% if i == order.product %} selected {% endif %}>{{i}}</option>
+                            {% for cd in pdt_combo %}
+                                <option value="{{cd.id}}" {% if cd == order.product %} selected {% endif %}>{{cd}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -107,8 +107,8 @@
                                 <option selected>선택</option>
                             {% endif %}
 
-                            {% for i in payment_type_combo %}
-                                <option value="{{i.id}}" {% if i == order.payment_type %} selected {% endif %}>{{i}}</option>
+                            {% for cd in payment_type_combo %}
+                                <option value="{{cd.id}}" {% if cd == order.payment_type %} selected {% endif %}>{{cd}}</option>
                             {% endfor %}
                         </select>
 
@@ -119,8 +119,8 @@
                                 <option selected>선택</option>
                             {% endif %}
 
-                            {% for i in payment_state_combo %}
-                                <option value="{{i.id}}" {% if i == order.payment_state %} selected {% endif %}>{{i}}</option>
+                            {% for cd in payment_state_combo %}
+                                <option value="{{cd.id}}" {% if cd == order.payment_state %} selected {% endif %}>{{cd}}</option>
                             {% endfor %}
                         </select>
                     </div>

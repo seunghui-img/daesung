@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block con %}
+
+<!-- Page Content-->
+<section class="py-7">
+    <div class="container px-3 my-5">
+        
+        <div class="row gx-5">
+            <div class="col-xl-12">
+                <h6 class="fw-bolder mb-3">매장 관리 > 직원 관리</h6>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <a href="{% url 'client:create' %}"><button type="button" class="btn btn-primary">신규</button></a>
+
+        <!-- 직원 목록 -->
+        <div class="row gx-5">
+            <div class="col-xl-12">
+                <div class="accordion mb-5" id="accordionExample">
+
+                    {% for i in stafflist %}
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="heading{{forloop.counter}}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">{{i.username}}</button>
+                        </h3>
+                        <div class="accordion-collapse collapse" id="collapse{{forloop.counter}}" aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+
+                                <form method="post" action="{% url 'acc:modify-staff' i.id %}" class="row g-3">
+                                    {% csrf_token %}
+
+                                    <div class="col-md-3">
+                                        <label for="last_name" class="form-label">이름</label>
+                                        <input name="last_name" value="{{i.last_name}}" type="text" class="form-control" id="last_name">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="first_name" class="form-label"></label>
+                                        <input name="first_name" value="{{i.first_name}}" type="text" class="form-control" id="first_name">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-check">
+                                          <input name="retiredcheck" class="form-check-input" type="checkbox" id="retiredcheck">
+                                          <label class="form-check-label" for="retiredcheck">
+                                            퇴사
+                                          </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date_retired" class="form-label">퇴사 일자</label>
+                                        <input name="date_retired" value="{{i.date_retired}}" type="date" class="form-control" id="date_retired" disabled>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="staff_type" class="form-label">담당 업무</label>
+                                        <select name="staff_type" id="staff_type" class="form-select">
+                                            {% for cd in stafftype_combo %}
+                                                <option value="{{cd.id}}" {% if cd == i.staff_type %} selected {% endif %}>{{cd}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="license_plate_number" class="form-label">차량 번호</label>
+                                        <input name="license_plate_number" value="{{i.license_plate_number}}" type="text" class="form-control" id="license_plate_number">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="birthday" class="form-label">생년월일</label>
+                                        <input name="birthday" value="{{i.birthday}}" type="date" class="form-control" id="birthday">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="telephone" class="form-label">전화번호</label>
+                                        <input name="telephone" value="{{i.telephone}}" type="text" class="form-control" id="telephone">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="cellphone" class="form-label">휴대폰번호</label>
+                                        <input name="cellphone" value="{{i.cellphone}}" type="text" class="form-control" id="cellphone">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">주소</label>
+                                        <input name="address" value="{{i.address}}" type="text" class="form-control" id="address">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="address2" class="form-label">상세주소</label>
+                                        <input name="address2" value="{{i.address2}}" type="text" class="form-control" id="address2">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="bank" class="form-label">은행</label>
+                                        <input name="bank" value="{{i.bank}}" type="text" class="form-control" id="bank">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label for="account" class="form-label">계좌번호</label>
+                                        <input name="account" value="{{i.account}}" type="text" class="form-control" id="account">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="comment" class="form-label">비고</label>
+                                        <textarea name="comment" value="{{i.comment}}" type="text" class="form-control" id="comment">{{i.comment}}</textarea>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <!-- <button type="button" class="btn">삭제</button> -->
+                                        <button type="submit" class="btn btn-primary">수정</button>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            <!-- <div class="col-xl-4">
+                <div class="card border-0 bg-light mt-xl-5">
+                    <div class="card-body p-4 py-lg-5">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="text-center">
+                                <div class="h6 fw-bolder">Have more questions?</div>
+                                <p class="text-muted mb-4">
+                                    Contact us at
+                                    <br />
+                                    <a href="#!">support@domain.com</a>
+                                </p>
+                                <div class="h6 fw-bolder">Follow us</div>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-twitter"></i></a>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-linkedin"></i></a>
+                                <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+<script>
+    function retiredcheck(){
+        checkval = $('#retiredcheck').value;
+
+        alert(checkval);
+    }
+
+</script>
+
+{% endblock %}

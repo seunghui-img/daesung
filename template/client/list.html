@@ -20,8 +20,8 @@
                 <div class="col-auto">
                     <select name="clienttype" class="form-select" id="searchClientype">
                         <option value="" {% if search.clienttype %} {% else %} selected {% endif %}>전체</option>
-                        {% for i in clienttype_combo %}
-                            <option value="{{i.id}}" {% if i.id == search.clienttype %} selected {% endif %}>{{i}}</option>
+                        {% for cd in clienttype_combo %}
+                            <option value="{{cd.id}}" {% if cd.id == search.clienttype %} selected {% endif %}>{{cd}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -30,8 +30,8 @@
                 <div class="col-auto">
                     <select name="biztype" class="form-select" id="searchBiztype">
                         <option value="" {% if search.biztype %} {% else %} selected {% endif %}>전체</option>
-                        {% for i in biztype_combo %}
-                            <option value="{{i.id}}" {% if i.id == search.biztype %} selected {% endif %}>{{i}}</option>
+                        {% for cd in biztype_combo %}
+                            <option value="{{cd.id}}" {% if cd.id == search.biztype %} selected {% endif %}>{{cd}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -64,6 +64,7 @@
                             <div class="accordion-body">
 
                                 <form method="post" action="{% url 'client:modify' i.id %}" class="row g-3">
+                                    {% csrf_token %}
                                     {% if i.client_type.code_val == 'C' %}
                                         <div class="col-md-6">
                                             <label for="corp_nm" class="form-label">사업장</label>
@@ -86,16 +87,16 @@
                                     <div class="col-md-3">
                                         <label for="client_type" class="form-label">거래처 유형</label>
                                         <select name="client_type" id="client_type" class="form-select">
-                                            {% for i in clienttype_combo %}
-                                                <option value="{{i.id}}" {% if i.id == i.client_type %} selected {% endif %}>{{i}}</option>
+                                            {% for cd in clienttype_combo %}
+                                                <option value="{{cd.id}}" {% if cd == i.client_type %} selected {% endif %}>{{cd}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="biz_type" class="form-label">거래 유형</label>
                                         <select name="biz_type" id="biz_type" class="form-select">
-                                            {% for i in biztype_combo %}
-                                                <option value="{{i.id}}" {% if i.id == i.biz_type %} selected {% endif %}>{{i}}</option>
+                                            {% for cd in biztype_combo %}
+                                                <option value="{{cd.id}}" {% if cd == i.biz_type %} selected {% endif %}>{{cd}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

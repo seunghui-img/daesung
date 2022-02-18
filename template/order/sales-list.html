@@ -8,7 +8,7 @@
 
         <div class="row gx-5">
             <div class="col-xl-12">
-                <h6 class="fw-bolder mb-3">주문 관리 > 판매 관리</h6>
+                <h6 class="fw-bolder mb-3">거래 장부 > 매출 장부</h6>
             </div>
         </div>
 
@@ -28,8 +28,8 @@
                 <div class="col-auto">
                     <select name="staffname" class="form-select" id="searchstaff">
                         <option value="" {% if search.staffname %} {% else %} selected {% endif %}>전체</option>
-                        {% for i in staff_combo %}
-                            <option value="{{i}}" {% if i.username == search.staffname %} selected {% endif %}>{{i}}</option>
+                        {% for cd in staff_combo %}
+                            <option value="{{cd.id}}" {% if cd.username == search.staffname %} selected {% endif %}>{{cd}}</option>
                         {% endfor %}
                     </select>
                 </div>

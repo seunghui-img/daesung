@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Product
 
 # Create your views here.
-def search(request):
+def list(request):
     context={
         'list': Product.objects.all(),
     }
