@@ -1,55 +1,40 @@
-<!-- Scrollable modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="m_client_label">거래처명</span>
-                        <input name="m_client" value="{{m_client}}" type="text" class="form-control" id="m_client" aria-describedby="m_client">
-                        <button class="btn btn-outline-secondary" type="button" id="client-search">검색</button>
-                    </div>
-                </form>
-                
-                <!-- 거래처 목록 -->
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <td>No</td>
-                            <td>거래처</td>
-                            <td>주소</td>
-                            <td>전화번호</td>
-                            <td>휴대폰번호</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if clientlist %}
-                            {% for i in clientlist %}
-                            <tr onclick="PopupEmpInfo(this)">
-                                <td>{{forloop.counter}}</td>
-                                <td>{{i.cust_nm}}</td>
-                                <td>{{i.address}} {{i.address2}}</td>
-                                <td>{{i.fmt_telephone}}</td>
-                                <td>{{i.fmt_cellphone}}</td>
-                            </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td colspan="5">조회된 내역이 없습니다.</td>
-                            </tr>
-                        {% endif %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" onclick="close_popup()">선택</button>
-            </div>
+<div class="modal-body">
+    <form action="{% url 'client:popup' %}">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="m_clientnm_label">거래처명</span>
+            <input name="m_clientnm" value="{{m_clientnm}}" type="text" class="form-control" id="m_clientnm" aria-describedby="m_clientnm">
+            <button type="button" class="btn btn-outline-secondary" id="client-popup-btn" onclick="popupSearch()">검색</button>
         </div>
-    </div>
+    </form>
+    
+    <!-- 거래처 목록 -->
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <td>No</td>
+                <td>거래처</td>
+                <td>주소</td>
+                <td>전화번호</td>
+                <td>휴대폰번호</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if clientpoplist %}
+                {% for i in clientpoplist %}
+                <tr onclick="PopupEmpInfo(this)">
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.cust_nm}}</td>
+                    <td>{{i.address}} {{i.address2}}</td>
+                    <td>{{i.fmt_telephone}}</td>
+                    <td>{{i.fmt_cellphone}}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">조회된 내역이 없습니다.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
 </div>

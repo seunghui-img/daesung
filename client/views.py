@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from .models import Client
@@ -79,3 +80,21 @@ def modify(request, pk):
         client.account = request.POST.get('account')
         client.save()
     return redirect('client:list')
+    
+def popup(request):
+    print(request)
+    m_clientnm = request.GET.get('m_clientnm')
+    print('popup', m_clientnm)
+
+    if m_clientnm:
+        clientlist = Client.objects.filter(cust_nm__contains=m_clientnm)
+    else:
+        clientlist = Client.objects.all()
+
+    context={
+        'clientpoplist': clientlist,
+        'm_clientnm': m_clientnm,
+    }
+
+    # return JsonResponse(context)
+    return render(request, 'client/popup.html', context)

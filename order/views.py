@@ -52,7 +52,7 @@ def sales_list(request):
     return render(request, 'order/sales-list.html', context)
 
 def create_sales(request):
-    print(request.method, 'create_sales')
+    # print(request.method, 'create_sales')
 
     if request.method == 'POST':
         insert(request, 7)

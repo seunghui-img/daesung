@@ -39,7 +39,7 @@ def staff_list(request):
     
     context = {
         'stafftype_combo' : CodeDt.objects.filter(staff_typeQ),
-        'stafflist' : User.objects.exclude(staff_type=0)
+        'stafflist' : User.objects.exclude(staff_type=1)
     }
     return render(request, 'acc/staff-list.html', context)
 
