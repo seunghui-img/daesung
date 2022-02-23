@@ -151,7 +151,6 @@ def dashboard(request):
 def update(request, pk):
     order = Order.objects.get(id=pk)
 
-    # TODO 거래처는 모달 팝업에서 선택으로 바꿀예정이기에 
     client = Client.objects.get(id=request.POST.get('client'))
     staff = User.objects.get(id=request.POST.get('staff'))
     product = Product.objects.get(id=request.POST.get('product'))

@@ -1,8 +1,8 @@
 
 <div class="modal-body">
-    <form action="{% url 'client:popup' %}">
+    <form action="{% url 'common:address' %}">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="pop_key_label">거래처명</span>
+            <!-- <span class="input-group-text" id="pop_key_label">검색</span> -->
             <input name="key" value="{{key}}" type="text" class="form-control" id="pop_key" aria-describedby="pop_key">
             <button type="button" class="btn btn-outline-secondary" onclick="popupSearch()">검색</button>
         </div>
@@ -13,10 +13,8 @@
         <thead>
             <tr>
                 <td>No</td>
-                <td>거래처</td>
-                <td>주소</td>
-                <td>전화번호</td>
-                <td>휴대폰번호</td>
+                <td>도로명주소</td>
+                <td>우편번호</td>
             </tr>
         </thead>
         <tbody>
@@ -24,10 +22,8 @@
                 {% for i in poplist %}
                 <tr onclick="selectRow({{forloop.counter}}, 'onclick')" ondblclick="selectRow(this, 'ondblclick')">
                     <td>{{forloop.counter}}</td>
-                    <td>{{i.cust_nm}}</td>
-                    <td>{{i.address}} {{i.address2}}</td>
-                    <td>{{i.fmt_telephone}}</td>
-                    <td>{{i.fmt_cellphone}}</td>
+                    <td>{{i.address}}</td>
+                    <td>{{i.postno}}</td>
                 </tr>
                 {% endfor %}
             {% else %}

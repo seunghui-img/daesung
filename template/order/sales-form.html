@@ -26,28 +26,12 @@
                     
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="client_label">거래처</span>
-                        <input name="client2" value="{{order.client}}" type="text" class="form-control" id="client" aria-describedby="client">
+                        <input value="{{order.client}}" type="text" id="client_" class="form-control" aria-describedby="client" disabled readonly>
+                        <input name="client" value="{{order.client.id}}" type="hidden" id="client">
 
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="거래처 검색">검색</button>
-
                     </div>
-
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="client_label">거래처 임시</span>
-                        <select name="client" class="form-select" aria-label="Default select example">
-                            {% if order.client %}
-                            {% else %}
-                                <option selected>선택</option>
-                            {% endif %}
-
-                            {% for cd in client_combo %}
-                                <option value="{{cd.id}}" {% if cd == order.client %} selected {% endif %}>{{cd}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="client_label">담당자</span>
@@ -169,7 +153,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" onclick="close_popup()">선택</button>
+                <button type="button" class="btn btn-primary" onclick="selectRow(null, 'button')">선택</button>
             </div>
         </div>
     </div>
@@ -190,7 +174,7 @@
     }
 
 
-    // 거래처 검색 모달 타이틀 설정
+    // 팝업 초기화 및 타이틀 설정
     var exampleModal = document.getElementById('exampleModal');
 
     exampleModal.addEventListener('show.bs.modal', function(event) {
@@ -209,25 +193,23 @@
         modalTitle.textContent = recipient;
     });
 
-    // 검색 리스트
+    // 팝업 조회
     function popupSearch(){
+
         $.ajax({
             url: "{% url 'client:popup' %}",
             type: "GET",
-            data: {
-                "m_clientnm": $('#m_clientnm').value
+            data: { 
+                "key": $('#pop_key').val(),
             },
             // datatype: 'json',
-            success: function(data){
-                console.log(data);
+            success: function(data){ 
+                // console.log(data);
 
                 document.all('popup_content').innerHTML=data;
-
-                // var element = document.getElementById('aaaa');
                 // var modalTitle = element.querySelector('#exampleModal');
                 // modalTitle.innerHTML=data;
 
-                // $('#aaaa').html(data);
                 // $('#exampleModal').html(data);
                 // document.getElementById("client_popup").innerHTML = data;
                 // $('#exampleModal').innerHTML = data;
@@ -237,6 +219,31 @@
         return false;
     }
     
+    // 팝업 선택 처리
+    function selectRow(row, event) {
+
+        console.log(event);
+        
+        if(event == 'onclick'){
+            //TODO lsh : 선택된 로우 css 처리
+
+        } else if(event == 'ondblclick'){
+            var row_td = row.getElementsByTagName("td");
+            $('#client').val(row_td[0].innerHTML);
+            $('#client_').val(row_td[1].innerHTML);
+
+            // 팝업 닫기
+            $('.modal-footer button:eq(0)').click();
+
+        } else if(event == 'button'){
+            // TODO lsh : 선택된 로우 가져온 후 닫기
+
+            // 팝업 닫기
+            $('.modal-footer button:eq(0)').click();
+        } else {
+            return false;
+        }
+    }
 </script>
 
 

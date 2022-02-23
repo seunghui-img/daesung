@@ -80,7 +80,10 @@
 
                                     <div class="col-md-6">
                                         <label for="address" class="form-label">주소</label>
-                                        <input name="address" value="{{i.address}}" type="text" class="form-control" id="address">
+                                        <input name="address" value="{{i.address}}" type="text" class="form-control" id="address" disabled readonly>
+                                        
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="도로명주소 검색">검색</button>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="address2" class="form-label">상세주소</label>
@@ -139,13 +142,100 @@
     </div>
 </section>
 
-<script>
+
+<!-- Scrollable modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div id="popup_content">
+            {% include 'common/address.html' %}
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" onclick="selectRow(null, 'button')">선택</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
     function retiredcheck(){
         checkval = $('#retiredcheck').value;
 
         alert(checkval);
     }
 
+    // 팝업 초기화 및 타이틀 설정
+    var exampleModal = document.getElementById('exampleModal');
+
+    exampleModal.addEventListener('show.bs.modal', function(event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var recipient = button.getAttribute('data-bs-whatever');
+
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        popupSearch();
+        
+        // Update the modal's content.
+        var modalTitle = exampleModal.querySelector('.modal-title');
+        modalTitle.textContent = recipient;
+    });
+
+    // 팝업 조회
+    function popupSearch(){
+
+        $.ajax({
+            url: "{% url 'common:address' %}",
+            type: "GET",
+            data: { 
+                "key": $('#pop_key').val(),
+            },
+            // datatype: 'json',
+            success: function(data){ 
+                console.log(data);
+
+                document.all('popup_content').innerHTML=data;
+            }
+        });
+
+        return false;
+    }
+    
+    // 팝업 선택 처리
+    function selectRow(row, event) {
+
+        console.log(event);
+        
+        if(event == 'onclick'){
+            //TODO lsh : 선택된 로우 css 처리
+
+        } else if(event == 'ondblclick'){
+            var row_td = row.getElementsByTagName("td");
+            $('#address').val(row_td[1].innerHTML);
+
+            // 팝업 닫기
+            $('.modal-footer button:eq(0)').click();
+
+        } else if(event == 'button'){
+            // TODO lsh : 선택된 로우 가져온 후 닫기
+
+            // 팝업 닫기
+            $('.modal-footer button:eq(0)').click();
+        } else {
+            return false;
+        }
+    }
 </script>
 
 {% endblock %}
