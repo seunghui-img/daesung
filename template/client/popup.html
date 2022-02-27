@@ -4,7 +4,7 @@
         <div class="input-group mb-3">
             <span class="input-group-text" id="pop_key_label">거래처명</span>
             <input name="key" value="{{key}}" type="text" class="form-control" id="pop_key" aria-describedby="pop_key">
-            <button type="button" class="btn btn-outline-secondary" onclick="popupSearch()">검색</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="search_popup()">검색</button>
         </div>
     </form>
     
@@ -38,3 +38,10 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    // 검색 버튼
+    function search_popup(){
+        popupSearch("{% url 'client:popup' %}");
+    }
+</script>

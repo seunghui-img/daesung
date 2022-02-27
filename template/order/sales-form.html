@@ -186,64 +186,13 @@
 
         // If necessary, you could initiate an AJAX request here
         // and then do the updating in a callback.
-        popupSearch();
+        popupSearch("{% url 'client:popup' %}");
         
         // Update the modal's content.
         var modalTitle = exampleModal.querySelector('.modal-title');
         modalTitle.textContent = recipient;
     });
 
-    // 팝업 조회
-    function popupSearch(){
-
-        $.ajax({
-            url: "{% url 'client:popup' %}",
-            type: "GET",
-            data: { 
-                "key": $('#pop_key').val(),
-            },
-            // datatype: 'json',
-            success: function(data){ 
-                // console.log(data);
-
-                document.all('popup_content').innerHTML=data;
-                // var modalTitle = element.querySelector('#exampleModal');
-                // modalTitle.innerHTML=data;
-
-                // $('#exampleModal').html(data);
-                // document.getElementById("client_popup").innerHTML = data;
-                // $('#exampleModal').innerHTML = data;
-            }
-        });
-
-        return false;
-    }
-    
-    // 팝업 선택 처리
-    function selectRow(row, event) {
-
-        console.log(event);
-        
-        if(event == 'onclick'){
-            //TODO lsh : 선택된 로우 css 처리
-
-        } else if(event == 'ondblclick'){
-            var row_td = row.getElementsByTagName("td");
-            $('#client').val(row_td[0].innerHTML);
-            $('#client_').val(row_td[1].innerHTML);
-
-            // 팝업 닫기
-            $('.modal-footer button:eq(0)').click();
-
-        } else if(event == 'button'){
-            // TODO lsh : 선택된 로우 가져온 후 닫기
-
-            // 팝업 닫기
-            $('.modal-footer button:eq(0)').click();
-        } else {
-            return false;
-        }
-    }
 </script>
 
 
