@@ -1,0 +1,438 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>대성가스 매출관리시스템</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="/acc/login/">대성가스</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="/sample/">Sample</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">매장 관리</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
+                                
+                                    <!-- <li><a class="dropdown-item" href="#">사업장 관리</a></li> -->
+                                    <li><a class="dropdown-item" href="/acc/staff/">직원 관리</a></li>
+                                
+                                <li><a class="dropdown-item" href="/product/">상품 관리</a></li>
+                                <li><a class="dropdown-item" href="/client/">거래처 관리</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">거래 장부</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
+                                <li><a class="dropdown-item" href="/order/sales-list/">매출 장부</a></li>
+                                <li><a class="dropdown-item" href="#">충전 장부</a></li>
+                                <li><a class="dropdown-item" href="#">미수금 내역</a></li>
+                                <li><a class="dropdown-item" href="#">재고 관리</a></li>
+                            </ul>
+                        </li>
+                        
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">매출 보고</a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown3">
+                                    <li><a class="dropdown-item" href="#">일간 매출</a></li>
+                                    <li><a class="dropdown-item" href="#">주간 매출</a></li>
+                                    <li><a class="dropdown-item" href="#">월간 매출</a></li>
+                                    <li><a class="dropdown-item" href="#">연간 매출</a></li>
+                                    <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                                </ul>
+                            </li>
+                        
+                        
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">admin</a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown3">
+                                    <li><a class="dropdown-item" href="#">개인정보</a></li>
+                                    <li><a class="dropdown-item" href="/acc/logout/">로그아웃</a></li>
+                                </ul>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+<!-- Page Content-->
+<section class="py-7">
+<div class="container px-3 my-5">
+    
+    <div class="row gx-5">
+        <div class="col-xl-12">
+            <h6 class="fw-bolder mb-3">매장 관리 &gt; 거래처 관리</h6>
+        </div>
+    </div>
+
+    <!-- 검색 조건 -->
+    <div class="text-center mb-5">
+
+        <form class="row gy-2 gx-3 align-items-center">
+            <label for="searchClientype" class="col-sm-1 col-form-label">거래처 유형</label>
+            <div class="col-auto">
+                <select name="clienttype" class="form-select" id="searchClientype">
+                    <option value="" selected="">전체</option>
+                    
+                        <option value="5">개인</option>
+                    
+                        <option value="6">사업자</option>
+                    
+                </select>
+            </div>
+
+            <label for="searchBiztype" class="col-sm-1 col-form-label">거래 유형</label>
+            <div class="col-auto">
+                <select name="biztype" class="form-select" id="searchBiztype">
+                    <option value="" selected="">전체</option>
+                    
+                        <option value="7">판매</option>
+                    
+                        <option value="8">충전</option>
+                    
+                        <option value="9">임대</option>
+                    
+                </select>
+            </div>
+
+            <label for="custnm" class="col-sm-1 col-form-label">거래처명</label>
+            <div class="col-auto">
+                <input name="custnm" value="" type="text" class="form-control" id="clientnm">
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-dark">검색</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Button -->
+    <a href="/client/create/"><button type="button" class="btn btn-primary">신규</button></a>
+
+    <!-- 거래처 목록 -->
+    <div class="row gx-5">
+        <div class="col-xl-12">
+            <div class="accordion mb-5" id="accordionExample">
+
+                
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="heading1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">박남희</button>
+                    </h3>
+                    <div class="accordion-collapse collapse" id="collapse1" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form method="post" action="/client/modify/1" class="row g-3">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="BRD5lYMGEgRD0nOsyCeak2v143BWLrA7HsTgibeayTRVQfL9FXKC8gMWPcnu3j4O">
+                                
+
+                                <div class="col-md-6">
+                                    
+                                    <label for="cust_nm" class="form-label">고객</label>
+                                    
+                                    <input name="cust_nm" value="박남희" type="text" class="form-control" id="cust_nm">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="client_type" class="form-label">거래처 유형</label>
+                                    <select name="client_type" id="client_type" class="form-select">
+                                        
+                                            <option value="5" selected="">개인</option>
+                                        
+                                            <option value="6">사업자</option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="biz_type" class="form-label">거래 유형</label>
+                                    <select name="biz_type" id="biz_type" class="form-select">
+                                        
+                                            <option value="7" selected="">판매</option>
+                                        
+                                            <option value="8">충전</option>
+                                        
+                                            <option value="9">임대</option>
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="address" class="form-label">주소</label>
+                                    <input name="address" value="경남 거창군 거창읍 대동리" type="text" class="form-control" id="address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address2" class="form-label">상세주소</label>
+                                    <input name="address2" value="141-1 삼성하이츠빌 A동 301호" type="text" class="form-control" id="address2">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="telephone" class="form-label">전화번호</label>
+                                    <input name="telephone" value="01043707233" type="text" class="form-control" id="telephone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cellphone" class="form-label">휴대폰번호</label>
+                                    <input name="cellphone" value="01043707233" type="text" class="form-control" id="cellphone">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="bank" class="form-label">은행</label>
+                                    <input name="bank" value="농협" type="text" class="form-control" id="bank">
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="account" class="form-label">계좌번호</label>
+                                    <input name="account" value="778451114455" type="text" class="form-control" id="account">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="comment" class="form-label">비고</label>
+                                    <textarea name="comment" value="" type="text" class="form-control" id="comment"></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="button" class="btn">삭제</button>
+                                    <button type="submit" class="btn btn-primary">수정</button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="heading2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">아림초등학교</button>
+                    </h3>
+                    <div class="accordion-collapse collapse" id="collapse2" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form method="post" action="/client/modify/2" class="row g-3">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="BRD5lYMGEgRD0nOsyCeak2v143BWLrA7HsTgibeayTRVQfL9FXKC8gMWPcnu3j4O">
+                                
+                                    <div class="col-md-6">
+                                        <label for="corp_nm" class="form-label">사업장</label>
+                                        <input name="corp_nm" value="아림초등학교" type="text" class="form-control" id="corp_nm">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="corp_no" class="form-label">사업자번호</label>
+                                        <input name="corp_no" value="77787777" type="text" class="form-control" id="corp_no">
+                                    </div>
+                                
+
+                                <div class="col-md-6">
+                                    
+                                    <label for="cust_nm" class="form-label">대표</label>
+                                    
+                                    <input name="cust_nm" value="아림초등학교" type="text" class="form-control" id="cust_nm">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="client_type" class="form-label">거래처 유형</label>
+                                    <select name="client_type" id="client_type" class="form-select">
+                                        
+                                            <option value="5">개인</option>
+                                        
+                                            <option value="6" selected="">사업자</option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="biz_type" class="form-label">거래 유형</label>
+                                    <select name="biz_type" id="biz_type" class="form-select">
+                                        
+                                            <option value="7" selected="">판매</option>
+                                        
+                                            <option value="8">충전</option>
+                                        
+                                            <option value="9">임대</option>
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="address" class="form-label">주소</label>
+                                    <input name="address" value="" type="text" class="form-control" id="address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address2" class="form-label">상세주소</label>
+                                    <input name="address2" value="" type="text" class="form-control" id="address2">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="telephone" class="form-label">전화번호</label>
+                                    <input name="telephone" value="" type="text" class="form-control" id="telephone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cellphone" class="form-label">휴대폰번호</label>
+                                    <input name="cellphone" value="" type="text" class="form-control" id="cellphone">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="bank" class="form-label">은행</label>
+                                    <input name="bank" value="" type="text" class="form-control" id="bank">
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="account" class="form-label">계좌번호</label>
+                                    <input name="account" value="" type="text" class="form-control" id="account">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="comment" class="form-label">비고</label>
+                                    <textarea name="comment" value="" type="text" class="form-control" id="comment"></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="button" class="btn">삭제</button>
+                                    <button type="submit" class="btn btn-primary">수정</button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="heading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">진주충전소</button>
+                    </h3>
+                    <div class="accordion-collapse collapse" id="collapse3" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form method="post" action="/client/modify/3" class="row g-3">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="BRD5lYMGEgRD0nOsyCeak2v143BWLrA7HsTgibeayTRVQfL9FXKC8gMWPcnu3j4O">
+                                
+                                    <div class="col-md-6">
+                                        <label for="corp_nm" class="form-label">사업장</label>
+                                        <input name="corp_nm" value="진주충전소" type="text" class="form-control" id="corp_nm">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="corp_no" class="form-label">사업자번호</label>
+                                        <input name="corp_no" value="115441221" type="text" class="form-control" id="corp_no">
+                                    </div>
+                                
+
+                                <div class="col-md-6">
+                                    
+                                    <label for="cust_nm" class="form-label">대표</label>
+                                    
+                                    <input name="cust_nm" value="진주충전소" type="text" class="form-control" id="cust_nm">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="client_type" class="form-label">거래처 유형</label>
+                                    <select name="client_type" id="client_type" class="form-select">
+                                        
+                                            <option value="5">개인</option>
+                                        
+                                            <option value="6" selected="">사업자</option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="biz_type" class="form-label">거래 유형</label>
+                                    <select name="biz_type" id="biz_type" class="form-select">
+                                        
+                                            <option value="7">판매</option>
+                                        
+                                            <option value="8" selected="">충전</option>
+                                        
+                                            <option value="9">임대</option>
+                                        
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="address" class="form-label">주소</label>
+                                    <input name="address" value="" type="text" class="form-control" id="address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address2" class="form-label">상세주소</label>
+                                    <input name="address2" value="" type="text" class="form-control" id="address2">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="telephone" class="form-label">전화번호</label>
+                                    <input name="telephone" value="" type="text" class="form-control" id="telephone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cellphone" class="form-label">휴대폰번호</label>
+                                    <input name="cellphone" value="" type="text" class="form-control" id="cellphone">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="bank" class="form-label">은행</label>
+                                    <input name="bank" value="" type="text" class="form-control" id="bank">
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="account" class="form-label">계좌번호</label>
+                                    <input name="account" value="" type="text" class="form-control" id="account">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="comment" class="form-label">비고</label>
+                                    <textarea name="comment" value="" type="text" class="form-control" id="comment"></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="button" class="btn">삭제</button>
+                                    <button type="submit" class="btn btn-primary">수정</button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+        
+
+
+        
+    </main>
+    <!-- Footer-->
+    <footer class="bg-dark py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto"><div class="small m-0 text-white">Copyright © Your Website 2022</div></div>
+                <div class="col-auto">
+                    <!-- <a class="link-light small" href="#!">Privacy</a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="#!">Terms</a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="#!">Contact</a> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Custom JS-->
+    <script src="/static/js/scripts.js"></script>
+
+    <!-- Daum Postcode Service API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
+
+</body></html>

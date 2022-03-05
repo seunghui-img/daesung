@@ -13,4 +13,8 @@ urlpatterns = [
     path('portfolio-item/', views.portfolio_item, name='portfolio-item'),
     path('portfolio-overview/', views.portfolio_overview, name='portfolio-overview'),
     path('pricing/', views.pricing, name='pricing'),
+
+
+
+    path('test/<name>', views.sample),
 ]

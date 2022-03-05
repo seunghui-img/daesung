@@ -20,3 +20,15 @@ def portfolio_overview(request):
 def pricing(request):
     return render(request, 'sample/pricing.html')
     
+
+def sample(request, name):
+    if name == 'login':
+        return render(request, 'sample/login.html')
+    elif name == 'list':
+        return render(request, 'sample/list.html')
+    elif name == 'form':
+        return render(request, 'sample/form.html')
+    elif name == 'changelist':
+        return render(request, 'sample/changelist.html')
+    else:
+        return render(request, 'sample/main.html')
