@@ -16,5 +16,6 @@ urlpatterns = [
 
 
 
+
     path('test/<name>', views.sample),
 ]
